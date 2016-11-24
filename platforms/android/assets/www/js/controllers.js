@@ -9,11 +9,9 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.currentLang = $scope.lang.kh;
     });
 
-
     $scope.changeLanguage = function(){
         if($scope.currentLang == $scope.lang.kh){
             $scope.currentLang = $scope.lang.en;
-            
         }else{
             $scope.currentLang = $scope.lang.kh;
         }
@@ -39,11 +37,11 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.doLogin = function() {
         $http({
             method: 'POST',
-            url: 'https://tools.customs.gov.kh/acl/auth/login/mobile?username='+$scope.loginData.username+'&password='+$scope.loginData.password
+            url: 'http://10.0.9.13:8181/awlaravel/public/acl/auth/login/mobile?username='+$scope.loginData.username+'&password='+$scope.loginData.password
         }).then(function successCallback(response) {
             if(response.data.status != "success"){
                 var alertPopup = $ionicPopup.alert({
-                    title: $scope.currentLang.title,
+                    title: $scope.currentLang.sub_title,
                     template: $scope.currentLang.login_err
                 });
             }else{
@@ -54,7 +52,7 @@ angular.module('starter.controllers', ['ngCordova'])
             }
         }, function errorCallback(response) {
             var alertPopup = $ionicPopup.alert({
-                title: $scope.currentLang.title,
+                title: $scope.currentLang.sub_title,
                 template: $scope.currentLang.connection_error
             });
         });
@@ -62,90 +60,74 @@ angular.module('starter.controllers', ['ngCordova'])
 })
 
 .controller('SearchCtrl', function($scope, $state, $ionicPopup, $cordovaBarcodeScanner, $ionicModal) {
-    $scope.data = [];
-    $scope.scanQRCode = function () {
-        $cordovaBarcodeScanner.scan().then(function(imageData) {
-            if(imageData.text.trim()!=""){
-                $scope.send(imageData.text.trim());
+        $scope.data = [];
+        $scope.scanQRCode = function () {
+            $cordovaBarcodeScanner.scan().then(function(imageData) {
+                if(imageData.text.trim()!=""){
+                    $scope.send(imageData.text.trim());
+                }
+            }, function(error) {
+                console.log("An error happened -> " + error);
+            });
+        }
+        $scope.search = function(){
+            var text = document.getElementById('txtSearch').value;
+            if(text.trim() == ""){
+                var alertPopup = $ionicPopup.alert({
+                    title: $scope.currentLang.sub_title,
+                    template: $scope.currentLang.text_required,
+                });
+            }else{
+                $scope.send(text);
             }
-        }, function(error) {
-            console.log("An error happened -> " + error);
-        });
-    }
-    $scope.search = function(){
-        var text = document.getElementById('txtSearch').value;
-        if(text.trim() == ""){
-            var alertPopup = $ionicPopup.alert({
-                title: $scope.currentLang.title,
-                template: $scope.currentLang.text_required,
-            });
-        }else{
-            $scope.send(text);
         }
-    }
 
-    $scope.send = function(text){
-        text = text.toUpperCase();
-        var doc = text.trim().substr(0,2);
-        // var cod = text.trim().substr(2,text.length);
-        if(doc == "VD"){
-            $state.go('app.vehicle',{vid:text}, {reload: true});
-        }else if(doc == "TD"){
-            $state.go('app.transport',{vid:text}, {reload: true});
-        }else if(doc == "CR"){
-            $state.go('app.payment',{vid:text}, {reload: true});
-        }else{
-            var alertPopup = $ionicPopup.alert({
-                title: $scope.currentLang.title,
-                template: $scope.currentLang.invalid_code,
-            });
+        $scope.send = function(text){
+            text = text.toUpperCase();
+            var doc = text.trim().substr(0,2);
+            // var cod = text.trim().substr(2,text.length);
+            if(doc == "SC"){
+                $state.go('app.scanCTN',{vid:text}, {reload: true});
+            }else{
+                var alertPopup = $ionicPopup.alert({
+                    title: $scope.currentLang.sub_title,
+                    template: $scope.currentLang.invalid_code,
+                });
+            }
         }
-    }
 
-    $scope.logout = function(){
-        $scope.loginData = {};
-        $scope.login();
-    }
-})
+        $scope.logout = function(){
+            $scope.loginData = {};
+            $scope.login();
+        }
+    })
 
-.controller('VehicleCtrl', function($scope, $state, $ionicPopup, $stateParams, $http) {
+.controller('ScanCtnCtrl', function($scope, $state, $ionicPopup, $stateParams, $http) {
     $scope.data = [];
     if(typeof $scope.loginData.token === 'undefined'){
         $state.go('app.search',{},{reload:true});
     }else{
-        var vd = $stateParams.vid.split("-")[0];
-        var itm = $stateParams.vid.split("-")[1];
-        var cpy = $stateParams.vid.split("-")[2];
-
-        var IDE_COD = vd.substring(2,7);
-        var IDE_YEA = vd.substring(7,11);
-        var IDE_SER = vd.substring(11,12);
-        var IDE_NBR = vd.substring(12,vd.length);
+        var vd = $stateParams.vid;
+        var IDE_CUO_COD = vd.substring(2,7);
+        var IDE_REF_YER = vd.substring(7,11);
+        var SCN_SER_NBR = vd.substring(11,vd.length);
         $http({
             method: 'POST',
             data:{
-                IDE_COD: IDE_COD,
-                IDE_YEA: IDE_YEA,
-                IDE_SER: IDE_SER,
-                IDE_NBR: IDE_NBR,
-                KEY_ITM_RNK: itm
+                ide_cuo_cod: IDE_CUO_COD,
+                ide_ref_yer: IDE_REF_YER,
+                scn_ser_nbr: SCN_SER_NBR,
+                _token: $scope.loginData.token
             },
-            url: 'https://tools.customs.gov.kh/api/vehicle/scan/'+$scope.loginData.token
+            url: 'http://10.0.9.13:8181/awlaravel/public/api/inspection/scanCTN/'+$scope.loginData.token
         }).then(function successCallback(response) {
             if(response.data){
                 $scope.data = response.data;
-                if(typeof(cpy) == 'undefined'){
-                    $scope.data.prn_nbr = "Unknown";
-                }else if(cpy == 0){
-                    $scope.data.prn_nbr = "Original Copy";
-                }else{
-                    $scope.data.prn_nbr = "Duplicate Copy " + cpy;
-                }
                 document.getElementById('spinner').style.display = "none";
                 document.getElementById('info').style.display = "block";
             }else{
                 var alertPopup = $ionicPopup.alert({
-                    title: $scope.currentLang.title,
+                    title: $scope.currentLang.sub_title,
                     template: $scope.currentLang.not_found
                 });
                 $state.go('app.search',{},{reload:true});
@@ -155,7 +137,7 @@ angular.module('starter.controllers', ['ngCordova'])
             document.getElementById('spinner').style.display = "none";
             document.getElementById('info').style.display = "block";
             var alertPopup = $ionicPopup.alert({
-                title: $scope.currentLang.title,
+                title: $scope.currentLang.sub_title,
                 template: $scope.currentLang.connection_error
             });
             $state.go('app.search',{},{reload:true});
@@ -163,26 +145,32 @@ angular.module('starter.controllers', ['ngCordova'])
     }
 })
 
-.controller('TransportCtrl', function($scope, $state, $ionicPopup, $stateParams, $http) {
+.controller('ScanCtnCtrl', function($scope, $state, $ionicPopup, $stateParams, $http) {
     $scope.data = [];
     if(typeof $scope.loginData.token === 'undefined'){
         $state.go('app.search',{},{reload:true});
     }else{
-        var BAR_COD = $stateParams.vid.substring(2,$stateParams.vid.length);
+        var vd = $stateParams.vid;
+        var IDE_CUO_COD = vd.substring(2,7);
+        var IDE_REF_YER = vd.substring(7,11);
+        var SCN_SER_NBR = vd.substring(11,vd.length);
         $http({
             method: 'POST',
             data:{
-                BAR_COD: BAR_COD
+                ide_cuo_cod: IDE_CUO_COD,
+                ide_ref_yer: IDE_REF_YER,
+                scn_ser_nbr: SCN_SER_NBR,
+                _token: $scope.loginData.token
             },
-            url: 'https://tools.customs.gov.kh/api/transport/scan/'+$scope.loginData.token
+            url: 'http://10.0.9.13:8181/awlaravel/public/api/inspection/scanCTN/'+$scope.loginData.token
         }).then(function successCallback(response) {
-            if(response.data.TRD_GENERAL_SEGMENT){
-                $scope.data = response.data.TRD_GENERAL_SEGMENT;
+            if(response.data){
+                $scope.data = response.data;
                 document.getElementById('spinner').style.display = "none";
                 document.getElementById('info').style.display = "block";
             }else{
                 var alertPopup = $ionicPopup.alert({
-                    title: $scope.currentLang.title,
+                    title: $scope.currentLang.sub_title,
                     template: $scope.currentLang.not_found
                 });
                 $state.go('app.search',{},{reload:true});
@@ -192,50 +180,30 @@ angular.module('starter.controllers', ['ngCordova'])
             document.getElementById('spinner').style.display = "none";
             document.getElementById('info').style.display = "block";
             var alertPopup = $ionicPopup.alert({
-                title: $scope.currentLang.title,
-                template: $scope.currentLang.connection_error,
+                title: $scope.currentLang.sub_title,
+                template: $scope.currentLang.connection_error
             });
             $state.go('app.search',{},{reload:true});
         });
     }
 })
 
-.controller('PaymentCtrl', function($scope, $state, $ionicPopup, $stateParams, $http) {
+.controller('CtnDetailCtrl', function($scope, $state, $stateParams) {
     $scope.data = [];
     if(typeof $scope.loginData.token === 'undefined'){
         $state.go('app.search',{},{reload:true});
     }else{
-        var BAR_COD = $stateParams.vid.substring(2,$stateParams.vid.length);
-        /*$http({
-            method: 'POST',
-            data:{
-                BAR_COD: BAR_COD
-            },
-            url: 'https://tools.customs.gov.kh/api/transport/scan/'+$scope.loginData.token
-        }).then(function successCallback(response) {
-            if(response.data.TRD_GENERAL_SEGMENT){
-                $scope.data = response.data.TRD_GENERAL_SEGMENT;
-                document.getElementById('spinner').style.display = "none";
-                document.getElementById('info').style.display = "block";
-            }else{
-                var alertPopup = $ionicPopup.alert({
-                    title: $scope.currentLang.title,
-                    template: $scope.currentLang.not_found
-                });
-                $state.go('app.search',{},{reload:true});
-            }
-        }, function errorCallback(response) {
-            console.log('response');
-            document.getElementById('spinner').style.display = "none";
-            document.getElementById('info').style.display = "block";
-            var alertPopup = $ionicPopup.alert({
-                title: $scope.currentLang.title,
-                template: $scope.currentLang.connection_error,
-            });
-            $state.go('app.search',{},{reload:true});
-        });*/
-
-        document.getElementById('spinner').style.display = "none";
-        document.getElementById('info').style.display = "block";
+        $scope.data.idt = $stateParams.item.split("~")[0];
+        $scope.data.typ = $stateParams.item.split("~")[1];
+        $scope.data.scan_pic_nbr = $stateParams.item.split("~")[2];
+        if($stateParams.item.split("~")[3] == "Doubt") {
+            $scope.data.ctn_sta = "សង្ស័យ";
+            $scope.data.ctn_dbt_prt = $stateParams.item.split("~")[4];
+            $scope.data.status = true;
+        } else if($stateParams.item.split("~")[3] == "NotDoubt") {
+            $scope.data.ctn_sta = "គ្មានសង្ស័យ";
+        } else if($stateParams.item.split("~")[3] == "NILL") {
+            $scope.data.ctn_sta = "nul";
+        }
     }
-});
+})

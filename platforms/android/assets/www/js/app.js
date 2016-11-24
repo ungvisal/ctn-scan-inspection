@@ -32,35 +32,24 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.transport', {
+  .state('app.scanCTN', {
     cache: false,
-    url: '/transport/:vid',
+    url: '/scanCtn/:vid',
     views: {
       'menuContent': {
-        templateUrl: 'templates/transport.html',
-        controller: 'TransportCtrl'
+        templateUrl: 'templates/scanCTN.html',
+        controller: 'ScanCtnCtrl'
       }
     }
   })
 
-  .state('app.vehicle', {
+  .state('app.ctnDetail', {
     cache: false,
-    url: '/vehicle/:vid',
+    url: '/ctnDetail/:item',
     views: {
       'menuContent': {
-        templateUrl: 'templates/vehicle.html',
-        controller: 'VehicleCtrl'
-      }
-    }
-  })
-
-  .state('app.payment', {
-    cache: false,
-    url: '/payment/:vid',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/payment.html',
-        controller: 'PaymentCtrl'
+        templateUrl: 'templates/ctnDetail.html',
+        controller: 'CtnDetailCtrl'
       }
     }
   })

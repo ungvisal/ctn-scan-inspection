@@ -73,7 +73,12 @@
         "container_ctn_sta": "ស្ថានភាព",
         "container_ctn_dbt_prt": "ផ្នែកដែលសង្ស័យ",
         "detail": "លម្អិត...",
-        "general_info": "ព័ត៌មានទូទៅ"
+        "general_info": "ព័ត៌មានទូទៅ",
+        "duration": "កាលបរិច្ឆេទត្រួតពិនិត្យរូបវ័ន្ត",
+        "start_date": "ចាប់ផ្តើម",
+        "end_date": "បញ្ចប់",
+        "isp_rst": "លទ្ធផលទទួលបានពីការត្រួតពិនិត្យរូបវ័ន្តលម្អិត",
+        "attactment": "រូបសកម្មភាព"
     },
     "en": {
         "author" : "The Asycuda Team",
@@ -149,6 +154,11 @@
         "container_ctn_sta": "Status",
         "container_ctn_dbt_prt": "Doubt Part",
         "detail": "Detail...",
-        "general_info": "General Info"
+        "general_info": "General Info",
+        "duration": "Date Physical Inspection",
+        "start_date": "Start",
+        "end_date": "End",
+        "isp_rst": "Result of Inspection",
+        "attactment": "Photo"
     }
 }

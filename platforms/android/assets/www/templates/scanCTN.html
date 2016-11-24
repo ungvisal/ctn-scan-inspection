@@ -15,7 +15,7 @@
 
         <div id="info" style="display: none">
             <h4 style="text-align:center; padding-bottom: 5px;">{{currentLang.inspection_resut}}</h4>
-            <div class="card">
+            <div class="list">
                 <div class="item item-divider">
                     {{currentLang.scan_report_info}}
                 </div>
@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="list">
                 <div class="item item-divider">
                     {{currentLang.container_info}}
                 </div>
@@ -48,38 +48,7 @@
                     </span>
                 </a>
             </div>
-            <div class="card">
-                <div class="item item-divider">
-                    {{currentLang.duration}}
-                </div>
-                <label class="item item-input">
-                    <span class="input-label" style="padding-top: 20px;">{{currentLang.start_date}}</span>
-                    <input type="datetime-local" id="dat_isp_str">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label" style="padding-top: 20px;">{{currentLang.end_date}}</span>
-                    <input type="datetime-local" id="dat_isp_end">
-                </label>
-            </div>
-            <div class="card">
-                <div class="item item-divider">
-                    {{currentLang.isp_rst}}
-                </div>
-                <label class="item item-input">
-                    <textarea style="height: 120px;" id="isp_rst"></textarea>
-                </label>
-            </div>
-            <div class="card">
-                <div class="item item-divider">
-                    {{currentLang.attactment}}
-                </div>
-                <label class="item item-input">
-                    <input type="file" style="border: 0px; color: #8E8E8E;" class="attach_file" name="attach_file[]">
-                    <span class="item-note">
-                        <ion-icon name="ion-trash-a"></ion-icon>
-                    </span>
-                </label>
-            </div>
+
         </div>
     </ion-content>
 </ion-view>
