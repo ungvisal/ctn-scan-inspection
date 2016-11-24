@@ -1,0 +1,129 @@
+<ion-view view-title="{{currentLang.result}}" align-title="center">
+    <ion-content class="padding">
+        <div style="text-align: center" id="spinner">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <ion-spinner icon="ios"></ion-spinner>
+        </div>
+
+        <div id="info" style="display: none">
+            <h3 style="text-align:center;">{{currentLang.transport_doc}}</h3>
+            <div class="list">
+                <div class="item item-divider">
+                    {{currentLang.sad_info}}
+                </div>
+                <div class="item">
+                    {{currentLang.office_code}}
+                    <span class="item-note">{{data.cuo_cod}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.office_name}}
+                    <span class="item-note">{{data.cuo_nam}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.sad_no}}
+                    <span class="item-note">{{data.sad_ser + "-" + data.sad_nbr + "/" + data.sad_status + "-" + data.sad_status_nbr}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.sad_date}}
+                    <span class="item-note">{{data.sad_dat.split(" ")[0]}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    {{currentLang.consignee_info}}
+                </div>
+                <div class="item">
+                    {{currentLang.company_code}}
+                    <span class="item-note">{{data.con_cod}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.company_name}}
+                    <span class="item-note">{{data.con_nam.split("\n")[0]}}</span>
+                </div>
+                <div class="item item-text-wrap">
+                    {{currentLang.address}} <br/>
+                    <!-- <span class="item-note"> -->
+                    <b>
+                        {{data.con_adr}}
+                    </b>
+                    <!-- </span> -->
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    {{currentLang.item_info}}
+                </div>
+                <div class="item "ng-repeat="item in data.items track by $index">
+                    {{$index+1}}. {{item.itm_dsc}}
+                    <span class="item-note">{{item.itm_wgs}}{{item.itm_wgs_unt}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    {{currentLang.transport_info}}
+                </div>
+                <div class="item">
+                    {{currentLang.total_type}}
+                    <span class="item-note">{{data.items.length}} Type(s)</span>
+                </div>
+                <div class="item">
+                    {{currentLang.departure}}
+                    <span class="item-note">{{data.trd_loc_from}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.destination}}
+                    <span class="item-note">{{data.trd_loc_to}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.road}}
+                    <span class="item-note">{{data.road}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.truck}}
+                    <span class="item-note">{{data.trk_mrk}} {{data.trk_nbr}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.truck_company}}
+                    <span class="item-note">{{data.trk_cmp}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.driver}}
+                    <span class="item-note">{{data.drv_nam}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.driver_id}}
+                    <span class="item-note">{{data.drv_ide}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.departure_date}}
+                    <span class="item-note">{{data.dat_trd_from}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.arrival_date}}
+                    <span class="item-note">{{data.dat_trd_to}}</span>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
+<style type="text/css">
+    .item-note{
+        color: black !important;
+        font-weight: bold !important;
+    }
+    .item-divider{
+        background-color: #d5d5d5 !important;
+    }
+</style>

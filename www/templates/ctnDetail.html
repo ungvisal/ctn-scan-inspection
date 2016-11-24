@@ -1,0 +1,46 @@
+<ion-view view-title="{{currentLang.container_info}}" align-title="center">
+    <ion-content class="padding">
+        <div id="info">
+            <div class="card">
+                <div class="item item-divider">
+                    {{currentLang.general_info}}
+                </div>
+                <div class="item">
+                    {{currentLang.container_idt}}
+                    <span class="item-note">{{data.idt}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.container_typ}}
+                    <span class="item-note">{{data.typ}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.container_scan_pic_nbr}}
+                    <span class="item-note">{{data.scan_pic_nbr}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.container_ctn_sta}}
+                    <span class="item-note">{{data.ctn_sta}}</span>
+                </div>
+            </div>
+            <div class="card" ng-if="data.status">
+                <div class="item item-divider">
+                    {{currentLang.container_ctn_dbt_prt}}
+                </div>
+                <div class="item item-text-wrap">
+                    {{data.ctn_dbt_prt}}
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
+
+<style type="text/css">
+    .item-note{
+        color: black !important;
+        font-weight: bold !important;
+    }
+    .item-divider{
+        background-color: #d5d5d5 !important;
+    }
+</style>

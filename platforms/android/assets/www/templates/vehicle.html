@@ -1,0 +1,113 @@
+<ion-view view-title="{{currentLang.result}}" align-title="center">
+    <ion-content class="padding">
+        <div style="text-align: center" id="spinner">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <ion-spinner icon="ios"></ion-spinner>
+        </div>
+
+        <div id="info" style="display: none">
+            <h3 style="text-align:center;">{{currentLang.vehicle_doc}}</h3>
+            <div class="list">
+                <div class="item item-divider">
+                    {{currentLang.receipt_info}}
+                </div>
+                <div class="item">
+                    {{currentLang.receipt_no}}
+                    <span class="item-note">{{data.ide_yea}} {{data.ide_ser}} {{data.ide_nbr}} - {{data.key_itm_rnk}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.receipt_date}}
+                <span class="item-note">{{data.ide_dat.split(" ")[0]}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.copy}}
+                    <span class="item-note">{{data.prn_nbr}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.cashier}}
+                    <span class="item-note">{{data.officer}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    {{currentLang.vehicle_info}}
+                </div>
+                <div class="item">
+                    {{currentLang.desc}}
+                    <span class="item-note">{{data.itm_dsc}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.chassis_no}}
+                    <span class="item-note">{{data.chasis_nber}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.engine_no}}
+                    <span class="item-note">{{data.engine_nber}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.vignette_no}}
+                    <span class="item-note">{{data.vignette_nber}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    {{currentLang.sad_info}}
+                </div>
+                <div class="item">
+                    {{currentLang.office_code}}
+                    <span class="item-note">{{data.ide_cod}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.office_name}}
+                    <span class="item-note">{{data.ide_nam}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.sad_no}}
+                    <span class="item-note">{{data.dec_ser + " " + data.dec_nbr}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.sad_date}}
+                    <span class="item-note">{{data.dec_dat.split(" ")[0]}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.declarant_code}}
+                    <span class="item-note">
+                    {{data.tra_dec_cod}}
+                    </span>
+                </div>
+                <div class="item">
+                    {{currentLang.declarant_name}}
+                    <span class="item-note">{{data.tra_dec_nam}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.company_code}}
+                    <span class="item-note">{{data.tra_cmp_cod}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.company_name}}
+                    <span class="item-note">{{data.tra_cmp_nam}}</span>
+                </div>
+            </div>
+      </div>
+    </ion-content>
+</ion-view>
+
+<style type="text/css">
+    .item-note{
+        color: black !important;
+        font-weight: bold !important;
+    }
+    .item-divider{
+        background-color: #d5d5d5 !important;
+    }
+</style>

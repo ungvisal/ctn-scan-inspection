@@ -1,0 +1,117 @@
+<ion-view view-title="Result" align-title="center">
+    <ion-content class="padding">
+        <div style="text-align: center" id="spinner">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <ion-spinner icon="ios"></ion-spinner>
+        </div>
+
+        <div id="info" style="display: none">
+            <h3 style="text-align:center;">Customs Receipt</h3>
+            <div class="list">
+                <div class="item item-divider">
+                    Receipt Info
+                </div>
+                <div class="item">
+                    Office Code
+                    <span class="item-note">{{data.ide_cod}}</span>
+                </div>
+                <div class="item">
+                    Office Name
+                    <span class="item-note">{{data.ide_nam}}</span>
+                </div>
+                <div class="item">
+                    Receipt No.
+                    <span class="item-note">{{data.ide_yea}} {{data.ide_ser}} {{data.ide_nbr}} - {{data.key_itm_rnk}}</span>
+                </div>
+                <div class="item">
+                    Receipt Date
+                <span class="item-note">{{data.ide_dat.split(" ")[0]}}</span>
+                </div>
+                <div class="item">
+                    Declarant No.
+                    <span class="item-note">{{data.prn_nbr}}</span>
+                </div>
+                <div class="item">
+                    Declarant
+                    <span class="item-note">{{data.officer}}</span>
+                </div>
+                <div class="item">
+                    Importer No.
+                    <span class="item-note">{{data.prn_nbr}}</span>
+                </div>
+                <div class="item">
+                    Importer
+                    <span class="item-note">{{data.officer}}</span>
+                </div>
+                <div class="item">
+                    Cashier
+                    <span class="item-note">{{data.officer}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    Declaration Info
+                </div>
+                <div class="item">
+                    SAD No
+                    <span class="item-note">{{data.itm_dsc}}</span>
+                </div>
+                <div class="item">
+                    Model
+                    <span class="item-note">{{data.chasis_nber}}</span>
+                </div>
+                <div class="item">
+                    Amount Paid
+                    <span class="item-note">{{data.engine_nber}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    Other Fees
+                </div>
+                <div class="item "ng-repeat="item in data.items track by $index">
+                    {{$index+1}}. {{item.itm_dsc}}
+                    <span class="item-note">{{item.itm_wgs}}{{item.itm_wgs_unt}}</span>
+                </div>
+                <div class="item">
+                    Total Fees
+                    <span class="item-note">{{data.engine_nber}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    Means of Payment
+                </div>
+                <div class="item "ng-repeat="item in data.items track by $index">
+                    {{$index+1}}. {{item.itm_dsc}}
+                    <span class="item-note">{{item.itm_wgs}}{{item.itm_wgs_unt}}</span>
+                </div>
+                <div class="item">
+                    Total Amount
+                    <span class="item-note">{{data.engine_nber}}</span>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
+<style type="text/css">
+    .item-note{
+        color: black !important;
+        font-weight: bold !important;
+    }
+    .item-divider{
+        background-color: #d5d5d5 !important;
+    }
+</style>

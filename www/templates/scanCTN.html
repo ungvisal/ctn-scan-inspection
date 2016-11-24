@@ -1,0 +1,64 @@
+<ion-view view-title="{{currentLang.sub_title}}" align-title="center">
+    <ion-content class="padding">
+        <div style="text-align: center" id="spinner">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <ion-spinner icon="ios"></ion-spinner>
+        </div>
+
+        <div id="info" style="display: none">
+            <h4 style="text-align:center; padding-bottom: 5px;">{{currentLang.inspection_resut}}</h4>
+            <div class="list">
+                <div class="item item-divider">
+                    {{currentLang.scan_report_info}}
+                </div>
+                <div class="item">
+                    {{currentLang.office_code}}
+                    <span class="item-note">{{data.ide_cuo_cod}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.sc_nbr}}
+                    <span class="item-note">{{data.ide_ref_yer}}-{{data.scn_ser_nbr}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.sc_date}}
+                    <span class="item-note">{{data.print_report}}</span>
+                </div>
+                <div class="item">
+                    {{currentLang.officer}}
+                    <span class="item-note">{{data.username}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    {{currentLang.container_info}}
+                </div>
+                <a class="item" ng-repeat="item in data.containers track by $index" href="#/app/ctnDetail/{{item.idt}}~{{item.typ}}~{{item.scan_pic_nbr}}~{{item.ctn_sta}}~{{item.ctn_dbt_prt}}">
+                    {{item.idt}}
+                    <span class="item-note" style="font-size: 12px; font-style: italic;">
+                        {{currentLang.detail}}
+                    </span>
+                </a>
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>
+
+<style type="text/css">
+    .item-note{
+        color: black !important;
+        font-weight: bold !important;
+    }
+    .item-divider{
+        background-color: #d5d5d5 !important;
+    }
+</style>
